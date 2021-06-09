@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="DMN_customerType_Board" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.8.1">
+  <decision id="DMN_customerType" name="customerType">
+    <decisionTable id="DecisionTable_1upbrv5" hitPolicy="FIRST">
+      <input id="InputClause_1c3ifi2" label="hasSubCompanies">
+        <inputExpression id="LiteralExpression_1w74tbf" typeRef="boolean">
+          <text>hasSubCompanies</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0q8pp4i" label="companyDomain">
+        <inputExpression id="LiteralExpression_14oavj4" typeRef="string">
+          <text>companyDomain</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0u4y67i">
+          <text>"Clothing","Fashion","Electronics","Jewelry","Fulfillment","Transport","Customs","Platform","Pharmacy","Other","Books_and_Journals","Nutrition_and_Supplements"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1lqyzfg" label="companyRevenue">
+        <inputExpression id="LiteralExpression_0mfskhj" typeRef="long">
+          <text>companyRevenue</text>
+        </inputExpression>
+      </input>
+      <input id="Input_1" label="companyVolume(#parcels/month)" biodi:width="283">
+        <inputExpression id="InputExpression_1" typeRef="long">
+          <text>companyVolume</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="customerType" name="customerType" typeRef="string">
+        <outputValues id="UnaryTests_0binp72">
+          <text>"standard","key-account"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_146j6ld">
+        <description>Companies with sub companies and good volume / revenue are of strategic importance!</description>
+        <inputEntry id="UnaryTests_0jnropm">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mhsf89">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_194ot8v">
+          <text>&gt;= 500000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l892mp">
+          <text>&gt;= 500</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1d3q7em">
+          <text>"key-account"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0egj6rm">
+        <description>Big companies with high volume / revenue are of strategic importance!</description>
+        <inputEntry id="UnaryTests_1vw08te">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vmktyy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p5oxcd">
+          <text>&gt;= 1000000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06u34u1">
+          <text>&gt;= 1000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00zdmuv">
+          <text>"key-account"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_15p591w">
+        <description>Companies in the domain of "Fulfillment, Transport, Customs or Platform" and good volume / revenue are of strategic importance as they are multiplicators!</description>
+        <inputEntry id="UnaryTests_1frw8ye">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ss5dbf">
+          <text>"Fulfillment","Transport","Customs","Platform"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1swz221">
+          <text>&gt;= 500000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1o8xjzy">
+          <text>&gt;= 500</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0kwe7jo">
+          <text>"key-account"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04yarqg">
+        <description>Companies in the domain of "Clothing, Fashion, Electronics, Jewelry, Books &amp; Journals, Nutrition &amp; Suplements, Pharmacy" and moderate volume / revenue are of strategic importance as we have the required customs setup in place for them!</description>
+        <inputEntry id="UnaryTests_0h6p6ud">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0udzaai">
+          <text>"Clothing","Fashion","Electronics","Jewelry","Books_and_Journals","Nutrition_and_Supplements","Pharmacy"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cok3zd">
+          <text>&gt;= 250000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cihghq">
+          <text>&gt;= 250</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14y3jrx">
+          <text>"key-account"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1lga9ou">
+        <description>All customers / companies that are not fitting into any of the 4 rulesets for "key-account" are declared as "standard"!</description>
+        <inputEntry id="UnaryTests_0ybqzr4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17rhqln">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bkimtl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1w3z5oa">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0s9e6sk">
+          <text>"standard"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="DMN_customerType">
+        <dc:Bounds height="80" width="180" x="160" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

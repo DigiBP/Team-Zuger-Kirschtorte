@@ -1,0 +1,1107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_0b3iayb" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.8.1">
+  <bpmn:collaboration id="Collaboration_1l0u8yy">
+    <bpmn:participant id="AsendiaSubsidiaryPool" name="Asendia Subsidiary" processRef="Process_Asendia" />
+    <bpmn:participant id="CustomerPool" name="Customer" />
+    <bpmn:messageFlow id="Flow_17nilzg" sourceRef="CustomerPool" targetRef="StartCatchingMessageEvent_startEvent" />
+    <bpmn:messageFlow id="Flow_13vyuyh" sourceRef="CustomerPool" targetRef="Event_0ytarxm" />
+    <bpmn:messageFlow id="Flow_0705ld1" sourceRef="Event_0aen5a1" targetRef="CustomerPool" />
+    <bpmn:messageFlow id="Flow_0ojruie" sourceRef="Task_sendScheduleRequest" targetRef="CustomerPool" />
+    <bpmn:messageFlow id="Flow_1yn5smd" sourceRef="Task_presentProductAndContract_sendSOP" targetRef="CustomerPool" />
+    <bpmn:messageFlow id="Flow_0uh4zod" sourceRef="CustomerPool" targetRef="Event_0hc8vs4" />
+    <bpmn:messageFlow id="Flow_1vv81pm" sourceRef="Activity_1cmwmek" targetRef="CustomerPool" />
+    <bpmn:messageFlow id="Flow_1hgnrlq" sourceRef="CustomerPool" targetRef="Activity_1cmwmek" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Asendia" isExecutable="true">
+    <bpmn:startEvent id="StartCatchingMessageEvent_startEvent" name="customer notification">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="clientName" type="string" defaultValue="${clientName}" />
+          <camunda:formField id="clientPhone" type="string" defaultValue="${clientPhone}" />
+          <camunda:formField id="companyCountry" type="string" defaultValue="${companyCountry}" />
+          <camunda:formField id="clientMail" type="string" defaultValue="${clientMail}" />
+          <camunda:formField id="companyName" type="string" defaultValue="${companyName}" />
+          <camunda:formField id="companyAddress" type="string" defaultValue="${companyAddress}" />
+          <camunda:formField id="companyVolume" type="string" defaultValue="${companyVolume}" />
+          <camunda:formField id="companyRevenue" type="string" defaultValue="${companyRevenue}" />
+          <camunda:formField id="companyDomain" type="string" defaultValue="${companyDomain}" />
+          <camunda:formField id="hasSubCompanies" type="string" defaultValue="${hasSubCompanies}" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_1iuq8jm</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1n5gfaf" messageRef="Message_0ztxlsg" />
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_01vm9xx" name="decide the business validity" camunda:candidateGroups="AsendiaBackoffice">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="clientName" label="Contact Person" type="string" defaultValue="${clientName}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="clientPhone" label="Contact Person Phone" type="string" defaultValue="${clientPhone}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="clientMail" label="Contact Person Mail" type="string" defaultValue="${clientMail}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyName" label="Name of Company" type="string" defaultValue="${companyName}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyAddress" label="Address of Company" type="string" defaultValue="${companyAddress}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyCountry" label="Country of Company" type="string" defaultValue="${companyCountry}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyVolume" label="Volume of Company" type="string" defaultValue="${companyVolume}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyRevenue" label="Revenue of Company" type="string" defaultValue="${companyRevenue}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyDomain" label="Domain of Company" type="string" defaultValue="${companyDomain}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="hasSubCompanies" label="Sub-Companies?" type="boolean" defaultValue="${hasSubCompanies}" />
+          <camunda:formField id="isValid" label="Is valid case?" type="boolean" defaultValue="false" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1iuq8jm</bpmn:incoming>
+      <bpmn:outgoing>Flow_1t3onf9</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_0n0c3w3" name="valid business?">
+      <bpmn:incoming>Flow_1t3onf9</bpmn:incoming>
+      <bpmn:outgoing>Flow_0xa9q7c</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0t5m9ez</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="Gateway_presentProductAndContract_customerType" name="customer type?">
+      <bpmn:incoming>Flow_0lr29i7</bpmn:incoming>
+      <bpmn:outgoing>Flow_0jnq7z4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0trnx0j</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Service_collectCustomerInformation" name="create / load customer in CRM">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+  "clientName": clientName,
+  "clientPhone": clientPhone,
+  "clientMail": clientMail,
+  "companyName": companyName,
+  "companyAddress": companyAddress,
+  "companyCountry": companyCountry,
+  "companyVolume": companyVolume,
+  "companyRevenue": companyRevenue,
+  "companyDomain": companyDomain,
+  "hasSubCompanies": hasSubCompanies
+});</camunda:script>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="accept">application/json</camunda:entry>
+                <camunda:entry key="content-type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/go8glqh05qnux0vctknc1cuahkqpec1v</camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:outputParameter name="clientId">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+clientId=object.clientID;</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0xa9q7c</bpmn:incoming>
+      <bpmn:outgoing>Flow_1d29n85</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_declareCustomerInactive" name="update customer as inactive in CRM">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">https://hook.integromat.com/p3mx56t2dmlbidg5rnombi8i3zdngnp7</camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="accept">application/json</camunda:entry>
+                <camunda:entry key="content-type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+  "clientID": clientID,
+  "clientName": clientName,
+  "clientPhone": clientPhone,
+  "clientMail": clientMail,
+  "companyName": companyName,
+  "companyAddress": companyAddress,
+  "companyCountry": companyCountry,
+  "companyVolume": companyVolume,
+  "companyRevenue": companyRevenue,
+  "companyDomain": companyDomain,
+  "hasSubCompanies": hasSubCompanies,
+  "clientIsInactive": true
+});</camunda:script>
+            </camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1i6yaia</bpmn:incoming>
+      <bpmn:incoming>Flow_1n28pjd</bpmn:incoming>
+      <bpmn:incoming>Flow_130o8ab</bpmn:incoming>
+      <bpmn:outgoing>Flow_0wco59f</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_1cpq8hp" name="successful business">
+      <bpmn:incoming>Flow_1ypiiow</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="EndEvent_InactiveCustomer" name="no business">
+      <bpmn:incoming>Flow_0wco59f</bpmn:incoming>
+      <bpmn:incoming>Flow_0t5m9ez</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:businessRuleTask id="Task_checkCustomerInformationCompleteness" name="check customer information completeness" camunda:resultVariable="isCompleteResult" camunda:decisionRef="DMN_checkCustomerInformation" camunda:mapDecisionResult="singleResult">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="clientPhone">${clientPhone}</camunda:inputParameter>
+          <camunda:inputParameter name="companyCountry">${companyCountry}</camunda:inputParameter>
+          <camunda:inputParameter name="clientMail">${clientMail}</camunda:inputParameter>
+          <camunda:inputParameter name="clientName">${clientName}</camunda:inputParameter>
+          <camunda:inputParameter name="companyAddress">${companyAddress}</camunda:inputParameter>
+          <camunda:inputParameter name="companyName">${companyName}</camunda:inputParameter>
+          <camunda:inputParameter name="companyVolume">${companyVolume}</camunda:inputParameter>
+          <camunda:inputParameter name="companyRevenue">${companyRevenue}</camunda:inputParameter>
+          <camunda:inputParameter name="companyDomain">${companyDomain}</camunda:inputParameter>
+          <camunda:inputParameter name="hasSubCompanies">${hasSubCompanies}</camunda:inputParameter>
+          <camunda:outputParameter name="isComplete">${isCompleteResult.isComplete}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1d29n85</bpmn:incoming>
+      <bpmn:incoming>Flow_01d2ins</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ljcnxq</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:serviceTask id="Activity_0gewbk5" name="update customer information in CRM">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">https://hook.integromat.com/p3mx56t2dmlbidg5rnombi8i3zdngnp7</camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="accept">application/json</camunda:entry>
+                <camunda:entry key="content-type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+  "clientID": clientId,
+  "clientName": clientName,
+  "clientPhone": clientPhone,
+  "clientMail": clientMail,
+  "companyName": companyName,
+  "companyAddress": companyAddress,
+  "companyCountry": companyCountry,
+  "companyVolume": companyVolume,
+  "companyRevenue": companyRevenue,
+  "companyDomain": companyDomain,
+  "hasSubCompanies": hasSubCompanies,
+  "clientIsInactive": false
+});</camunda:script>
+            </camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_12qhy11</bpmn:incoming>
+      <bpmn:outgoing>Flow_01d2ins</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_presentProductAndContract_customerType_merge">
+      <bpmn:incoming>Flow_1ukycpi</bpmn:incoming>
+      <bpmn:incoming>Flow_016a021</bpmn:incoming>
+      <bpmn:outgoing>Flow_0chgfky</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="Gateway_customerInfoComplete" name="customer info complete?">
+      <bpmn:incoming>Flow_0ljcnxq</bpmn:incoming>
+      <bpmn:outgoing>Flow_18ey584</bpmn:outgoing>
+      <bpmn:outgoing>Flow_03p04rg</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_16a58s1" name="create customer contract">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+  "clientId": clientId,
+  "clientName": clientName,
+  "clientPhone": clientPhone,
+  "clientMail": clientMail,
+  "companyName": companyName,
+  "companyAddress": companyAddress,
+  "companyCountry": companyCountry,
+  "companyVolume": companyVolume,
+  "companyRevenue": companyRevenue,
+  "companyDomain": companyDomain,
+  "hasSubCompanies": hasSubCompanies,
+  "customerAgent": customerAgent,
+  "processId": execution.getProcessInstanceId(),
+  "finalPrice": finalPrice,
+});</camunda:script>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/x3r23sl25wor6svejgwwfnxhij11ud6t</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="accept">application/json</camunda:entry>
+                <camunda:entry key="content-type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0chgfky</bpmn:incoming>
+      <bpmn:outgoing>Flow_1h6ffne</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:intermediateCatchEvent id="Event_0ytarxm" name="receive contract answer">
+      <bpmn:incoming>Flow_0bz4bb8</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ga4dz3</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0desjmm" messageRef="Message_142id8k" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:eventBasedGateway id="Gateway_1xc34qd" name="response?">
+      <bpmn:incoming>Flow_0410wno</bpmn:incoming>
+      <bpmn:outgoing>Flow_0bz4bb8</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1v4h5sw</bpmn:outgoing>
+    </bpmn:eventBasedGateway>
+    <bpmn:exclusiveGateway id="Gateway_0pw66zf" name="contract status?">
+      <bpmn:incoming>Flow_0ga4dz3</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ypiiow</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1n28pjd</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0o72qmj</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:intermediateThrowEvent id="Event_0aen5a1" name="send contract">
+      <bpmn:incoming>Flow_1h6ffne</bpmn:incoming>
+      <bpmn:outgoing>Flow_0410wno</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1gu0vtg" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:subProcess id="SubProcess_defineProductAndContract" name="create customer portfolio">
+      <bpmn:incoming>Flow_16z0850</bpmn:incoming>
+      <bpmn:incoming>Flow_1lftfjd</bpmn:incoming>
+      <bpmn:outgoing>Flow_0lr29i7</bpmn:outgoing>
+      <bpmn:startEvent id="StartEvent_SubProcess_defineProductAndContract">
+        <bpmn:outgoing>Flow_0d345ja</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:endEvent id="EndEvent_SubProcess_defineProductAndContract">
+        <bpmn:incoming>Flow_0rgla1p</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_0rgla1p" sourceRef="Activity_12gc7ob" targetRef="EndEvent_SubProcess_defineProductAndContract" />
+      <bpmn:sequenceFlow id="Flow_0d345ja" sourceRef="StartEvent_SubProcess_defineProductAndContract" targetRef="Activity_182tqnw" />
+      <bpmn:sequenceFlow id="Flow_17ti21x" sourceRef="Activity_182tqnw" targetRef="Activity_12gc7ob" />
+      <bpmn:manualTask id="Activity_182tqnw" name="...">
+        <bpmn:incoming>Flow_0d345ja</bpmn:incoming>
+        <bpmn:outgoing>Flow_17ti21x</bpmn:outgoing>
+      </bpmn:manualTask>
+      <bpmn:userTask id="Activity_12gc7ob" name="finish portfolio" camunda:assignee="${customerAgent}" camunda:candidateGroups="AsendiaSalesAgents">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="clientId" label="Client ID" type="string">
+              <camunda:validation>
+                <camunda:constraint name="readonly" config="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="clientName" label="Contact Person" type="string" defaultValue="${clientName}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" config="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="clientPhone" label="Contact Person Phone" type="string" defaultValue="${clientPhone}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" config="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="clientMail" label="Contact Person Mail" type="string" defaultValue="${clientMail}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" config="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="companyName" label="Name of Company" type="string" defaultValue="${companyName}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" config="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="companyAddress" label="Address of Company" type="string" defaultValue="${companyAddress}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" config="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="companyCountry" label="Country of Company" type="string" defaultValue="${companyCountry}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" config="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="companyVolume" label="Volume of Company" type="string" defaultValue="${companyVolume}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" config="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="companyRevenue" label="Revenue of Company" type="string" defaultValue="${companyRevenue}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" config="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="companyDomain" label="Domain of Company" type="string" defaultValue="${companyDomain}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" config="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="hasSubCompanies" label="Sub-Companies?" type="boolean" defaultValue="${hasSubCompanies}" />
+            <camunda:formField id="checklist" label="Checklist" type="string" defaultValue="https://drive.google.com/file/d/1mhngXbqUl0u8LGczRM4VV2eGPXFLb-Ug/view?usp=sharing" />
+            <camunda:formField id="productPortFolio" label="Product Portfolio URL" type="string" defaultValue="https://drive.google.com/file/d/1m2ap1PXl9PnrapF5PCPgmZtb1a-IbyJQ/view?usp=sharing" />
+            <camunda:formField id="productPresentation" label="Product Presentation" type="string" defaultValue="https://drive.google.com/file/d/15v_Lqs-TMCTHPKaY8AEyGxbpQn00kvBU/view?usp=sharing" />
+            <camunda:formField id="SOP" label="SOP" type="string" defaultValue="https://drive.google.com/file/d/1VTyhumSf_K9O1W5SHefUvAz8qf9JMeXy/view?usp=sharing" />
+            <camunda:formField id="finalPrice" label="Price" type="long" />
+            <camunda:formField id="reworkRemarks" label="Rework Remarks" type="string" />
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_17ti21x</bpmn:incoming>
+        <bpmn:outgoing>Flow_0rgla1p</bpmn:outgoing>
+      </bpmn:userTask>
+    </bpmn:subProcess>
+    <bpmn:sequenceFlow id="Flow_130o8ab" sourceRef="Event_0mn3yp8" targetRef="Task_declareCustomerInactive" />
+    <bpmn:sequenceFlow id="Flow_0chgfky" sourceRef="Gateway_presentProductAndContract_customerType_merge" targetRef="Activity_16a58s1" />
+    <bpmn:sequenceFlow id="Flow_1v4h5sw" sourceRef="Gateway_1xc34qd" targetRef="Event_0mn3yp8" />
+    <bpmn:sequenceFlow id="Flow_0bz4bb8" sourceRef="Gateway_1xc34qd" targetRef="Event_0ytarxm" />
+    <bpmn:sequenceFlow id="Flow_0ga4dz3" sourceRef="Event_0ytarxm" targetRef="Gateway_0pw66zf" />
+    <bpmn:sequenceFlow id="Flow_1n28pjd" name="rejected" sourceRef="Gateway_0pw66zf" targetRef="Task_declareCustomerInactive">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${contractStatus=="rejected"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0410wno" sourceRef="Event_0aen5a1" targetRef="Gateway_1xc34qd" />
+    <bpmn:sequenceFlow id="Flow_1h6ffne" sourceRef="Activity_16a58s1" targetRef="Event_0aen5a1" />
+    <bpmn:sequenceFlow id="Flow_16t158i" sourceRef="Event_0hc8vs4" targetRef="Activity_0bvwd63" />
+    <bpmn:sequenceFlow id="Flow_16z0850" sourceRef="Activity_1sv8qpb" targetRef="SubProcess_defineProductAndContract" />
+    <bpmn:sequenceFlow id="Flow_14mfcs1" sourceRef="Task_defineCustomerType" targetRef="Activity_1sv8qpb" />
+    <bpmn:sequenceFlow id="Flow_01d2ins" sourceRef="Activity_0gewbk5" targetRef="Task_checkCustomerInformationCompleteness" />
+    <bpmn:sequenceFlow id="Flow_1ukycpi" sourceRef="Task_presentProductAndContract_sendSOP" targetRef="Gateway_presentProductAndContract_customerType_merge" />
+    <bpmn:sequenceFlow id="Flow_0trnx0j" name="standard" sourceRef="Gateway_presentProductAndContract_customerType" targetRef="Task_presentProductAndContract_sendSOP">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${customerType=="standard"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0jnq7z4" name="key-account" sourceRef="Gateway_presentProductAndContract_customerType" targetRef="Task_sendScheduleRequest">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${customerType=="key-account"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0lr29i7" sourceRef="SubProcess_defineProductAndContract" targetRef="Gateway_presentProductAndContract_customerType" />
+    <bpmn:sequenceFlow id="Flow_0ljcnxq" sourceRef="Task_checkCustomerInformationCompleteness" targetRef="Gateway_customerInfoComplete" />
+    <bpmn:sequenceFlow id="Flow_18ey584" name="yes" sourceRef="Gateway_customerInfoComplete" targetRef="Task_defineCustomerType">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isComplete}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0wco59f" sourceRef="Task_declareCustomerInactive" targetRef="EndEvent_InactiveCustomer" />
+    <bpmn:sequenceFlow id="Flow_1i6yaia" sourceRef="BoundaryInterruptingIntermediateTimerEvent_noResponseToInfo" targetRef="Task_declareCustomerInactive" />
+    <bpmn:sequenceFlow id="Flow_0xa9q7c" name="yes" sourceRef="Gateway_0n0c3w3" targetRef="Service_collectCustomerInformation">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isValid}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1d29n85" sourceRef="Service_collectCustomerInformation" targetRef="Task_checkCustomerInformationCompleteness" />
+    <bpmn:sequenceFlow id="Flow_1iuq8jm" sourceRef="StartCatchingMessageEvent_startEvent" targetRef="Activity_01vm9xx" />
+    <bpmn:sequenceFlow id="Flow_1t3onf9" sourceRef="Activity_01vm9xx" targetRef="Gateway_0n0c3w3" />
+    <bpmn:sequenceFlow id="Flow_1ypiiow" name="accepted" sourceRef="Gateway_0pw66zf" targetRef="Event_1cpq8hp">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${contractStatus=="accepted"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0t5m9ez" name="no" sourceRef="Gateway_0n0c3w3" targetRef="EndEvent_InactiveCustomer">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isValid}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask id="Task_sendScheduleRequest" name="send schedule request">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="content-type">application/json</camunda:entry>
+                <camunda:entry key="accept">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+  "clientId": clientId,
+  "clientName": clientName,
+  "clientPhone": clientPhone,
+  "clientMail": clientMail,
+  "companyName": companyName,
+  "companyAddress": companyAddress,
+  "companyCountry": companyCountry,
+  "customerAgent": customerAgent,
+  "bookingUrl": customerAgentBookingUrl,
+  "processInstanceId": execution.getProcessInstanceId()
+});</camunda:script>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/rmfesg67blwfdiqfhvr9gqunkzvbki5d</camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0jnq7z4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0jt5nws</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0jt5nws" sourceRef="Task_sendScheduleRequest" targetRef="Event_0hc8vs4" />
+    <bpmn:userTask id="Activity_0bvwd63" name="present customer portfolio" camunda:assignee="${customerAgent}" camunda:candidateGroups="AsendiaSalesAgents">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="clientName" label="Contact Person" type="string" defaultValue="${clientName}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="clientPhone" label="Contact Person Phone" type="string" defaultValue="${clientPhone}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="clientMail" label="Contact Person Mail" type="string" defaultValue="${clientMail}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyName" label="Name of Company" type="string" defaultValue="${companyName}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyAddress" label="Address of Company" type="string" defaultValue="${companyAddress}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyCountry" label="Country of Company" type="string" defaultValue="${companyCountry}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyVolume" label="Volume of Company" type="string" defaultValue="${companyVolume}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyRevenue" label="Revenue of Company" type="string" defaultValue="${companyRevenue}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyDomain" label="Domain of Company" type="string" defaultValue="${companyDomain}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="hasSubCompanies" label="Sub-Companies?" type="boolean" defaultValue="${hasSubCompanies}" />
+          <camunda:formField id="checklist" label="Checklist" type="string" defaultValue="https://drive.google.com/file/d/1mhngXbqUl0u8LGczRM4VV2eGPXFLb-Ug/view?usp=sharing">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="productPortFolio" label="Product Portfolio URL" type="string" defaultValue="https://drive.google.com/file/d/1m2ap1PXl9PnrapF5PCPgmZtb1a-IbyJQ/view?usp=sharing">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="productPresentation" label="Product Presentation" type="string" defaultValue="https://drive.google.com/file/d/15v_Lqs-TMCTHPKaY8AEyGxbpQn00kvBU/view?usp=sharing">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="SOP" label="SOP" type="string" defaultValue="https://drive.google.com/file/d/1VTyhumSf_K9O1W5SHefUvAz8qf9JMeXy/view?usp=sharing">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="scheduledDate" label="Presentation Date" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_16t158i</bpmn:incoming>
+      <bpmn:outgoing>Flow_016a021</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_016a021" sourceRef="Activity_0bvwd63" targetRef="Gateway_presentProductAndContract_customerType_merge" />
+    <bpmn:intermediateCatchEvent id="Event_0mn3yp8" name="silent customer">
+      <bpmn:incoming>Flow_1v4h5sw</bpmn:incoming>
+      <bpmn:outgoing>Flow_130o8ab</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_1nub3i3">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P14D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_0o72qmj" name="rework" sourceRef="Gateway_0pw66zf" targetRef="Activity_0vzycmi">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${contractStatus=="rework"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1lftfjd" sourceRef="Activity_0vzycmi" targetRef="SubProcess_defineProductAndContract" />
+    <bpmn:userTask id="Activity_0vzycmi" name="update customer in CRM with the added notes for rework" camunda:assignee="${customerAgent}" camunda:candidateGroups="AsendiaSalesAgents">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="clientName" label="Contact Person" type="string" defaultValue="${clientName}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="clientPhone" label="Contact Person Phone" type="string" defaultValue="${clientPhone}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="clientMail" label="Contact Person Mail" type="string" defaultValue="${clientMail}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyName" label="Name of Company" type="string" defaultValue="${companyName}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyAddress" label="Address of Company" type="string" defaultValue="${companyAddress}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyCountry" label="Country of Company" type="string" defaultValue="${companyCountry}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyVolume" label="Volume of Company" type="string" defaultValue="${companyVolume}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyRevenue" label="Revenue of Company" type="string" defaultValue="${companyRevenue}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="companyDomain" label="Domain of Company" type="string" defaultValue="${companyDomain}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="hasSubCompanies" label="Sub-Companies?" type="boolean" defaultValue="${hasSubCompanies}" />
+          <camunda:formField id="checklist" label="Checklist" type="string" defaultValue="https://drive.google.com/file/d/1mhngXbqUl0u8LGczRM4VV2eGPXFLb-Ug/view?usp=sharing">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="productPortFolio" label="Product Portfolio URL" type="string" defaultValue="https://drive.google.com/file/d/1m2ap1PXl9PnrapF5PCPgmZtb1a-IbyJQ/view?usp=sharing">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="productPresentation" label="Product Presentation" type="string" defaultValue="https://drive.google.com/file/d/15v_Lqs-TMCTHPKaY8AEyGxbpQn00kvBU/view?usp=sharing">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="SOP" label="SOP" type="string" defaultValue="https://drive.google.com/file/d/1VTyhumSf_K9O1W5SHefUvAz8qf9JMeXy/view?usp=sharing">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="reworkRemarks" label="Rework Remarks" type="string" defaultValue="Customer wishes the following aspects to be reworked:" />
+          <camunda:formField id="finalPrice" label="Price" type="long">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0o72qmj</bpmn:incoming>
+      <bpmn:outgoing>Flow_1lftfjd</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:businessRuleTask id="Task_defineCustomerType" name="define customer type" camunda:resultVariable="customerTypeResult" camunda:decisionRef="DMN_customerType" camunda:mapDecisionResult="singleResult">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="hasSubCompanies">${hasSubCompanies}</camunda:inputParameter>
+          <camunda:inputParameter name="companyDomain">${companyDomain}</camunda:inputParameter>
+          <camunda:inputParameter name="companyRevenue">${companyRevenue}</camunda:inputParameter>
+          <camunda:inputParameter name="companyVolume">${companyVolume}</camunda:inputParameter>
+          <camunda:outputParameter name="customerType">${customerTypeResult.customerType}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_18ey584</bpmn:incoming>
+      <bpmn:outgoing>Flow_14mfcs1</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:userTask id="Activity_1sv8qpb" name="assign customer agent" camunda:candidateGroups="AsendiaTeamleader">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="clientId" label="Client ID" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="customerType" label="Type of Customer" type="string" defaultValue="${customerType}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="customerAgent" label="Customer Agent" type="string" defaultValue="SalesAgent01" />
+          <camunda:formField id="customerAgentBookingUrl" label="Booking Url" type="string" defaultValue="https://go.oncehub.com/AsendiaRobertGeissen" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_14mfcs1</bpmn:incoming>
+      <bpmn:outgoing>Flow_16z0850</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Task_presentProductAndContract_sendSOP" name="send customer portfolio">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="content-type">application/json</camunda:entry>
+                <camunda:entry key="accept">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+  "clientId": clientId,
+  "clientName": clientName,
+  "clientPhone": clientPhone,
+  "clientMail": clientMail,
+  "companyName": companyName,
+  "companyAddress": companyAddress,
+  "companyCountry": companyCountry,
+  "companyVolume": companyVolume,
+  "companyRevenue": companyRevenue,
+  "companyDomain": companyDomain,
+  "hasSubCompanies": hasSubCompanies,
+"customerAgent": customerAgent,
+  "processId": execution.getProcessInstanceId()
+});</camunda:script>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/y8dj1oq42cd3smuvon325jdjlk21nwdm</camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0trnx0j</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ukycpi</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:intermediateCatchEvent id="Event_0hc8vs4" name="receive schedule">
+      <bpmn:incoming>Flow_0jt5nws</bpmn:incoming>
+      <bpmn:outgoing>Flow_16t158i</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1vr5u1f" messageRef="Message_06vteiy" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_03p04rg" name="no" sourceRef="Gateway_customerInfoComplete" targetRef="Activity_1cmwmek">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isComplete}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_12qhy11" sourceRef="Activity_1cmwmek" targetRef="Activity_0gewbk5" />
+    <bpmn:userTask id="Activity_1cmwmek" name="retrieve missing information" camunda:candidateGroups="AsendiaBackoffice">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="clientId" label="Client ID" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="clientName" label="Contact Person" type="string" defaultValue="${clientName}" />
+          <camunda:formField id="clientPhone" label="Contact Person Phone" type="string" defaultValue="${clientPhone}" />
+          <camunda:formField id="clientMail" label="Contact Person Mail" type="string" defaultValue="${clientMail}" />
+          <camunda:formField id="companyName" label="Name of Company" type="string" defaultValue="${companyName}" />
+          <camunda:formField id="companyAddress" label="Address of Company" type="string" defaultValue="${companyAddress}" />
+          <camunda:formField id="companyCountry" label="Country of Company" type="string" defaultValue="${companyCountry}" />
+          <camunda:formField id="companyVolume" label="Volume of Company" type="string" defaultValue="${companyVolume}" />
+          <camunda:formField id="companyRevenue" label="Revenue of Company" type="string" defaultValue="${companyRevenue}" />
+          <camunda:formField id="companyDomain" label="Domain of Company" type="string" defaultValue="${companyDomain}" />
+          <camunda:formField id="hasSubCompanies" label="Sub-Companies?" type="boolean" defaultValue="${hasSubCompanies}" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_03p04rg</bpmn:incoming>
+      <bpmn:outgoing>Flow_12qhy11</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:boundaryEvent id="BoundaryInterruptingIntermediateTimerEvent_noResponseToInfo" name="inactive customer opportunity" attachedToRef="Activity_1cmwmek">
+      <bpmn:outgoing>Flow_1i6yaia</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_18pcp9i">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P14D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
+    <bpmn:textAnnotation id="TextAnnotation_1nlbzk2">
+      <bpmn:text>because of the complexity of this subprocess is not further described here</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_06bjjv1" sourceRef="SubProcess_defineProductAndContract" targetRef="TextAnnotation_1nlbzk2" />
+  </bpmn:process>
+  <bpmn:message id="Message_0ztxlsg" name="customerNotification" />
+  <bpmn:message id="Message_142id8k" name="Message_receiveContractAnswer" />
+  <bpmn:message id="Message_06vteiy" name="Message_receiveSchedule" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1l0u8yy">
+      <bpmndi:BPMNShape id="Participant_0qv7mdy_di" bpmnElement="AsendiaSubsidiaryPool" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="3318" height="750" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_12qhy11_di" bpmnElement="Flow_12qhy11">
+        <di:waypoint x="840" y="630" />
+        <di:waypoint x="840" y="580" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_03p04rg_di" bpmnElement="Flow_03p04rg">
+        <di:waypoint x="970" y="432" />
+        <di:waypoint x="970" y="670" />
+        <di:waypoint x="890" y="670" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="955" y="644" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lftfjd_di" bpmnElement="Flow_1lftfjd">
+        <di:waypoint x="2464" y="250" />
+        <di:waypoint x="1530" y="250" />
+        <di:waypoint x="1530" y="302" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0o72qmj_di" bpmnElement="Flow_0o72qmj">
+        <di:waypoint x="2970" y="382" />
+        <di:waypoint x="2970" y="250" />
+        <di:waypoint x="2564" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2983" y="349" width="34" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_016a021_di" bpmnElement="Flow_016a021">
+        <di:waypoint x="2300" y="339" />
+        <di:waypoint x="2360" y="339" />
+        <di:waypoint x="2360" y="382" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jt5nws_di" bpmnElement="Flow_0jt5nws">
+        <di:waypoint x="2010" y="339" />
+        <di:waypoint x="2122" y="339" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0t5m9ez_di" bpmnElement="Flow_0t5m9ez">
+        <di:waypoint x="550" y="432" />
+        <di:waypoint x="550" y="780" />
+        <di:waypoint x="3320" y="780" />
+        <di:waypoint x="3320" y="708" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="563" y="448" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ypiiow_di" bpmnElement="Flow_1ypiiow">
+        <di:waypoint x="2995" y="407" />
+        <di:waypoint x="3292" y="407" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3033" y="393" width="45" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1t3onf9_di" bpmnElement="Flow_1t3onf9">
+        <di:waypoint x="450" y="407" />
+        <di:waypoint x="525" y="407" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1iuq8jm_di" bpmnElement="Flow_1iuq8jm">
+        <di:waypoint x="278" y="407" />
+        <di:waypoint x="350" y="407" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1d29n85_di" bpmnElement="Flow_1d29n85">
+        <di:waypoint x="740" y="407" />
+        <di:waypoint x="790" y="407" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xa9q7c_di" bpmnElement="Flow_0xa9q7c">
+        <di:waypoint x="575" y="407" />
+        <di:waypoint x="640" y="407" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="592" y="393" width="17" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1i6yaia_di" bpmnElement="Flow_1i6yaia">
+        <di:waypoint x="908" y="710" />
+        <di:waypoint x="2910" y="710" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wco59f_di" bpmnElement="Flow_0wco59f">
+        <di:waypoint x="3010" y="690" />
+        <di:waypoint x="3302" y="690" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18ey584_di" bpmnElement="Flow_18ey584">
+        <di:waypoint x="995" y="407" />
+        <di:waypoint x="1030" y="407" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="998" y="393" width="17" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ljcnxq_di" bpmnElement="Flow_0ljcnxq">
+        <di:waypoint x="890" y="407" />
+        <di:waypoint x="945" y="407" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lr29i7_di" bpmnElement="Flow_0lr29i7">
+        <di:waypoint x="1730" y="405" />
+        <di:waypoint x="1805" y="405" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jnq7z4_di" bpmnElement="Flow_0jnq7z4">
+        <di:waypoint x="1830" y="380" />
+        <di:waypoint x="1830" y="339" />
+        <di:waypoint x="1910" y="339" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1800" y="323" width="61" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0trnx0j_di" bpmnElement="Flow_0trnx0j">
+        <di:waypoint x="1830" y="430" />
+        <di:waypoint x="1830" y="479" />
+        <di:waypoint x="1990" y="479" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1812" y="482" width="43" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ukycpi_di" bpmnElement="Flow_1ukycpi">
+        <di:waypoint x="2090" y="479" />
+        <di:waypoint x="2360" y="479" />
+        <di:waypoint x="2360" y="432" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01d2ins_di" bpmnElement="Flow_01d2ins">
+        <di:waypoint x="840" y="500" />
+        <di:waypoint x="840" y="447" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14mfcs1_di" bpmnElement="Flow_14mfcs1">
+        <di:waypoint x="1130" y="407" />
+        <di:waypoint x="1180" y="407" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16z0850_di" bpmnElement="Flow_16z0850">
+        <di:waypoint x="1280" y="407" />
+        <di:waypoint x="1331" y="407" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16t158i_di" bpmnElement="Flow_16t158i">
+        <di:waypoint x="2158" y="339" />
+        <di:waypoint x="2200" y="339" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1h6ffne_di" bpmnElement="Flow_1h6ffne">
+        <di:waypoint x="2564" y="407" />
+        <di:waypoint x="2622" y="407" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0410wno_di" bpmnElement="Flow_0410wno">
+        <di:waypoint x="2658" y="407" />
+        <di:waypoint x="2705" y="407" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1n28pjd_di" bpmnElement="Flow_1n28pjd">
+        <di:waypoint x="2970" y="432" />
+        <di:waypoint x="2970" y="650" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2980" y="443" width="40" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ga4dz3_di" bpmnElement="Flow_0ga4dz3">
+        <di:waypoint x="2858" y="407" />
+        <di:waypoint x="2945" y="407" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bz4bb8_di" bpmnElement="Flow_0bz4bb8">
+        <di:waypoint x="2755" y="407" />
+        <di:waypoint x="2822" y="407" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1v4h5sw_di" bpmnElement="Flow_1v4h5sw">
+        <di:waypoint x="2730" y="432" />
+        <di:waypoint x="2730" y="567" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0chgfky_di" bpmnElement="Flow_0chgfky">
+        <di:waypoint x="2385" y="407" />
+        <di:waypoint x="2464" y="407" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_130o8ab_di" bpmnElement="Flow_130o8ab">
+        <di:waypoint x="2730" y="603" />
+        <di:waypoint x="2730" y="670" />
+        <di:waypoint x="2910" y="670" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_15ah9nq_di" bpmnElement="StartCatchingMessageEvent_startEvent">
+        <dc:Bounds x="242" y="389" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="234" y="359" width="53" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1y02o53_di" bpmnElement="Activity_01vm9xx" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="350" y="367" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0n0c3w3_di" bpmnElement="Gateway_0n0c3w3" isMarkerVisible="true">
+        <dc:Bounds x="525" y="382" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="512" y="358" width="75" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_08n3id1_di" bpmnElement="Gateway_presentProductAndContract_customerType" isMarkerVisible="true">
+        <dc:Bounds x="1805" y="380" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1862" y="402" width="76" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0txg4sh_di" bpmnElement="Service_collectCustomerInformation" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="640" y="367" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09osidh_di" bpmnElement="Task_declareCustomerInactive" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="2910" y="650" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1cpq8hp_di" bpmnElement="Event_1cpq8hp" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <dc:Bounds x="3292" y="389" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3284" y="351.5" width="52" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1pcsqkm_di" bpmnElement="EndEvent_InactiveCustomer" bioc:stroke="rgb(229, 57, 53)" bioc:fill="rgb(255, 205, 210)">
+        <dc:Bounds x="3302" y="672" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3290" y="648" width="60" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vc2zvu_di" bpmnElement="Task_checkCustomerInformationCompleteness" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="790" y="367" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0gewbk5_di" bpmnElement="Activity_0gewbk5" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="790" y="500" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1k10av4_di" bpmnElement="Gateway_presentProductAndContract_customerType_merge" isMarkerVisible="true">
+        <dc:Bounds x="2335" y="382" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1uhvnr0_di" bpmnElement="Gateway_customerInfoComplete" isMarkerVisible="true">
+        <dc:Bounds x="945" y="382" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="937" y="345" width="67" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_16a58s1_di" bpmnElement="Activity_16a58s1" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="2464" y="367" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ytarxm_di" bpmnElement="Event_0ytarxm">
+        <dc:Bounds x="2822" y="389" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2802" y="356" width="79" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1xc34qd_di" bpmnElement="Gateway_1xc34qd">
+        <dc:Bounds x="2705" y="382" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2704" y="352" width="52" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0pw66zf_di" bpmnElement="Gateway_0pw66zf" isMarkerVisible="true">
+        <dc:Bounds x="2945" y="382" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2881" y="366" width="78" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0aen5a1_di" bpmnElement="Event_0aen5a1">
+        <dc:Bounds x="2622" y="389" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2610" y="371" width="67" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_05f4n3z_di" bpmnElement="SubProcess_defineProductAndContract" isExpanded="true">
+        <dc:Bounds x="1331" y="302" width="399" height="198" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_17ti21x_di" bpmnElement="Flow_17ti21x">
+        <di:waypoint x="1519" y="409" />
+        <di:waypoint x="1550" y="409" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0d345ja_di" bpmnElement="Flow_0d345ja">
+        <di:waypoint x="1387" y="409" />
+        <di:waypoint x="1419" y="409" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rgla1p_di" bpmnElement="Flow_0rgla1p">
+        <di:waypoint x="1650" y="409" />
+        <di:waypoint x="1672" y="409" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1hf33d8_di" bpmnElement="StartEvent_SubProcess_defineProductAndContract">
+        <dc:Bounds x="1351" y="391" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0yvffgj_di" bpmnElement="EndEvent_SubProcess_defineProductAndContract">
+        <dc:Bounds x="1672" y="391" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1smgjbg_di" bpmnElement="Activity_182tqnw">
+        <dc:Bounds x="1419" y="369" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_12gc7ob_di" bpmnElement="Activity_12gc7ob" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="1550" y="369" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0yvx4vg_di" bpmnElement="Task_sendScheduleRequest" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="1910" y="299" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0bvwd63_di" bpmnElement="Activity_0bvwd63" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="2200" y="299" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0mn3yp8_di" bpmnElement="Event_0mn3yp8">
+        <dc:Bounds x="2712" y="567" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2738" y="558" width="76" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vzycmi_di" bpmnElement="Activity_0vzycmi" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="2464" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1yvogzx_di" bpmnElement="Task_defineCustomerType" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="1030" y="367" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1sv8qpb_di" bpmnElement="Activity_1sv8qpb" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="1180" y="367" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ndsgw5_di" bpmnElement="Task_presentProductAndContract_sendSOP" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="1990" y="439" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1phe4w6_di" bpmnElement="Event_0hc8vs4">
+        <dc:Bounds x="2122" y="321" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2098" y="297" width="83" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1cmwmek_di" bpmnElement="Activity_1cmwmek" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="790" y="630" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1nlbzk2_di" bpmnElement="TextAnnotation_1nlbzk2">
+        <dc:Bounds x="1350" y="160" width="100" height="82" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1hahico_di" bpmnElement="BoundaryInterruptingIntermediateTimerEvent_noResponseToInfo">
+        <dc:Bounds x="872" y="692" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="866" y="735" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_06bjjv1_di" bpmnElement="Association_06bjjv1">
+        <di:waypoint x="1444" y="302" />
+        <di:waypoint x="1418" y="242" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_0c81k3o_di" bpmnElement="CustomerPool" isHorizontal="true">
+        <dc:Bounds x="160" y="920" width="3318" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_17nilzg_di" bpmnElement="Flow_17nilzg">
+        <di:waypoint x="260" y="920" />
+        <di:waypoint x="260" y="425" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13vyuyh_di" bpmnElement="Flow_13vyuyh">
+        <di:waypoint x="2840" y="920" />
+        <di:waypoint x="2840" y="425" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0705ld1_di" bpmnElement="Flow_0705ld1">
+        <di:waypoint x="2640" y="425" />
+        <di:waypoint x="2640" y="920" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ojruie_di" bpmnElement="Flow_0ojruie">
+        <di:waypoint x="1960" y="379" />
+        <di:waypoint x="1960" y="920" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1yn5smd_di" bpmnElement="Flow_1yn5smd">
+        <di:waypoint x="2040" y="519" />
+        <di:waypoint x="2040" y="920" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0uh4zod_di" bpmnElement="Flow_0uh4zod">
+        <di:waypoint x="2140" y="920" />
+        <di:waypoint x="2140" y="357" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vv81pm_di" bpmnElement="Flow_1vv81pm">
+        <di:waypoint x="820" y="710" />
+        <di:waypoint x="820" y="920" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hgnrlq_di" bpmnElement="Flow_1hgnrlq">
+        <di:waypoint x="860" y="920" />
+        <di:waypoint x="860" y="710" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

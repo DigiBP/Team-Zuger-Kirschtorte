@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="DMN_checkCustomerInformation_Board" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+  <decision id="DMN_checkCustomerInformation" name="checkCustomerInformation">
+    <decisionTable id="DecisionTable_0l5pwa1" hitPolicy="FIRST">
+      <input id="Input_1" label="companyName">
+        <inputExpression id="InputExpression_1" typeRef="string" expressionLanguage="javascript">
+          <text>companyName</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1tgs691" label="companyAddress">
+        <inputExpression id="LiteralExpression_0myifwn" typeRef="string" expressionLanguage="javascript">
+          <text>companyAddress</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1o6ll43" label="companyCountry">
+        <inputExpression id="LiteralExpression_0v2qg4e" typeRef="string" expressionLanguage="javascript">
+          <text>companyCountry</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0vaa54k" label="clientName">
+        <inputExpression id="LiteralExpression_1p1oqdz" typeRef="string" expressionLanguage="javascript">
+          <text>clientName</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0c3rlib" label="clientPhone">
+        <inputExpression id="LiteralExpression_0q9qpm2" typeRef="string" expressionLanguage="javascript">
+          <text>clientPhone</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_06k9xgw" label="clientMail">
+        <inputExpression id="LiteralExpression_1ub9ypn" typeRef="string" expressionLanguage="javascript">
+          <text>clientMail</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1aceqza" label="companyRevenue">
+        <inputExpression id="LiteralExpression_15g49pk" typeRef="string" expressionLanguage="javascript">
+          <text>companyRevenue</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0qjhauh" label="companyVolume">
+        <inputExpression id="LiteralExpression_17bkx69" typeRef="string" expressionLanguage="javascript">
+          <text>companyVolume</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0lkvq9h" label="companyDomain">
+        <inputExpression id="LiteralExpression_1o9kmxy" typeRef="string" expressionLanguage="javascript">
+          <text>companyDomain</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_184368g" label="hasSubCompanies">
+        <inputExpression id="LiteralExpression_0osmupe" typeRef="boolean">
+          <text>hasSubCompanies</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="isComplete" name="isComplete" typeRef="boolean" />
+      <rule id="DecisionRule_1woef3w">
+        <description>Not all mandatory fields are populated with any information</description>
+        <inputEntry id="UnaryTests_1pluuf9">
+          <text>""</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yv2qpz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0g18k62">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0y3vyn9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0i75px9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17ag66x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1963t45">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e2h839">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1elxns8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1z12tti">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1mtcjsz">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1fr45eq">
+        <description>Not all mandatory fields are populated with any information</description>
+        <inputEntry id="UnaryTests_0a4q9er">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10trtuz">
+          <text>""</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0g857kl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0iadwd9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0patxu7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14ag8d6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0z61xeu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u9qjm7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0895l2y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tp3ie0">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15hlvjz">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ez0128">
+        <description>Not all mandatory fields are populated with any information</description>
+        <inputEntry id="UnaryTests_0ulf3d5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18ii1lk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03vf4dj">
+          <text>""</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nvu10s">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tsddm6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kzg8r1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04phfjm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kpb97g">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fg64yj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nf2amj">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17a9w63">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1wvggd0">
+        <description>Not all mandatory fields are populated with any information</description>
+        <inputEntry id="UnaryTests_1k2xcz7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s5iomk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00k2e0u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15in6vd">
+          <text>""</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p68slk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fdeg7l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ntcncb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ea7wj4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cya6eo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nuujnk">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vg3o9z">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0jnm1a2">
+        <description>Not all mandatory fields are populated with any information</description>
+        <inputEntry id="UnaryTests_1su9ahq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lekofp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0prtsjs">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dbgb15">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05c7l7e">
+          <text>""</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ywtz4j">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_112ukvn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1x5qpyj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01ervqj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xpkjl6">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0457yj6">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1q46pya">
+        <description>Not all mandatory fields are populated with any information</description>
+        <inputEntry id="UnaryTests_0gzvpyj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1d8wt7w">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rsx6im">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0q8acie">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rymh74">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_141mp8j">
+          <text>""</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0q5hmw3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1x787us">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r9hnmr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s9cj6w">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1l6t9uj">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_026a0a4">
+        <description>Not all mandatory fields are populated with any information</description>
+        <inputEntry id="UnaryTests_0ke7eby">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08flnw5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ccxspw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01ytilv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14kcl88">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jncd7l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pdzq18">
+          <text>""</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07lpru7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s89hf0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1m0fork">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15qn199">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0gnt61v">
+        <description>Not all mandatory fields are populated with any information</description>
+        <inputEntry id="UnaryTests_1w6g7ks">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x7r3jk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0c2x33i">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vrm5h3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l6q1uk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_088nv3x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zu406s">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h8zzpu">
+          <text>""</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1spuf5b">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yqb48w">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1k8w0l4">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0bg1ooj">
+        <description>Not all mandatory fields are populated with any information</description>
+        <inputEntry id="UnaryTests_1l15sko">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_025dnam">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v6ey7h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bq5hcg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14a45j7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02fgk4x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ruet9k">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uvjst9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qhzpsl">
+          <text>""</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gq221e">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1prro88">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0p8go4m">
+        <description>All mandatory fields have to populated with any information</description>
+        <inputEntry id="UnaryTests_1o30ni5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11khmsd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06nz7lk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1d9cggn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o3uq8j">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a3naoj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08rjljz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o1nqgy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0j5a772">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qrso7x">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1q7wrdt">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="DMN_checkCustomerInformation">
+        <dc:Bounds height="80" width="180" x="160" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
